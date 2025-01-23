@@ -1,0 +1,26 @@
+pipeline{
+
+      agent any
+      tools {
+           maven 'maven'
+           jdk 'java-17'
+       }
+        
+        stages{
+
+              stage('maven build'){
+                  steps{
+                      script{
+		    	                sh "mvn clean install"
+                      	  }
+               	     }  
+                 }	
+                 
+                 stage ('Check logs') {
+                    steps {
+                        filterLogs ('WARNING', 50)
+                    }
+                }
+		
+           }	       	     	         
+}
